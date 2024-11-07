@@ -1,6 +1,10 @@
 
-const powerMeter = (device, index, id) => {
+const powerMeter = (device, index, id, hasVA = false) => {
   device._defineProperty(`powerMeter${index}`, id, 0, Number)
+  if (hasVA) {
+    device._defineProperty(`powerMeter${index}V`, id+1, 0, Number)
+    device._defineProperty(`powerMeter${index}A`, id+2, 0, Number)
+  }
 
   const getHttpSettings = () => {
     return getHttpStatus()
@@ -10,6 +14,8 @@ const powerMeter = (device, index, id) => {
   const getHttpStatus = () => {
     return {
       power: device[`powerMeter${index}`],
+      voltage: hasVA ? device[`powerMeter${index}V`] : 0,
+      current: hasVA ? device[`powerMeter${index}A`] : 0,
       is_valid: true,
     }
   }
@@ -38,6 +44,7 @@ const relay = (device, index, id, disableHttpRoute = false) => {
     return {
       ison: device[`relay${index}`],
       has_timer: device[`_relay${index}Timeout`] !== null,
+      overpower: false,
     }
   }
   device[`_getRelay${index}HttpStatus`] = getHttpStatus

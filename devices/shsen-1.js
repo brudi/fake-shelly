@@ -1,4 +1,4 @@
-const Device = require('./base')
+const { Device } = require('./base')
 
 class ShellySense extends Device {
   constructor(id) {

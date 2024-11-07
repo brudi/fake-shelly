@@ -20,7 +20,10 @@ const banner = `
 (__) \\_/\\_/(__\\_)(____)    (____/\\_)(_/(____)\\____/\\____/(__/
 `
 console.log(banner)
-
+device = createDevice(
+  opts.device.toUpperCase(),
+  opts.id.toUpperCase()
+)
 try {
   device = createDevice(
     opts.device.toUpperCase(),

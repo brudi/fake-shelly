@@ -16,6 +16,8 @@ const ShellyPlugS = require('./shplg-s')
 const ShellyRGBW2Color = require('./shrgbw2-color')
 const ShellyRGBW2White = require('./shrgbw2-white')
 const ShellySense = require('./shsen-1')
+const Shelly3EM = require('./shem-3')
+const ShellyPlus1PM = require('./shelly-plus-1pm')
 
 const createDevice = (type, id) => {
   switch (type) {
@@ -59,6 +61,12 @@ const createDevice = (type, id) => {
       return new Shelly4Pro(id)
     case 'SHWT-1':
       return new ShellyFlood(id)
+    case 'SHEM-3':
+      return new Shelly3EM(id)
+    // Support both OpenHAB thing type & Vendor ID
+    case 'SHELLYPLUS1PM':
+    case 'SNSW-001P16EU':
+      return new ShellyPlus1PM(id)
     default:
       throw new Error(`Unknown device type "${type}"`)
   }
@@ -84,4 +92,6 @@ module.exports = {
   ShellyRGBW2Color,
   ShellyRGBW2White,
   ShellySense,
+  Shelly3EM,
+  ShellyPlus1PM,
 }

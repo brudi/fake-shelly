@@ -26,6 +26,18 @@ class HttpServer extends EventEmitter {
       server.on('pre', req => {
         console.log(req.method, req.url)
       })
+      server.on('after', (req, res, _, error) => {
+        console.log(req.method, req.url, res.statusCode, res._data, error)
+      })
+
+      server.on('InternalServer', function(req, res, err, callback) {
+        console.log("InternalServerError", req.method, req.url, res, err)
+        return callback();
+      });
+      server.on('BadRequest', function(req, res, err, callback) {
+        console.log("InternalServerError", req.method, req.url, res, err)
+        return callback();
+      });
 
       this.device.setupHttpRoutes(server)
 

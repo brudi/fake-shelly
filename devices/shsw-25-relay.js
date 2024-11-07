@@ -1,4 +1,4 @@
-const Device = require('./base')
+const { Device } = require('./base')
 const mixins = require('./mixins')
 
 class Shelly25Relay extends Device {
